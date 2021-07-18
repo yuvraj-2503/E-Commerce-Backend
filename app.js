@@ -1,6 +1,7 @@
-require('dotenv').config()
+require('dotenv').config({ path: './config.env' })
 const mongoose= require('mongoose')
 const express= require('express')
+const session= require('express-session')
 const bodyParser= require('body-parser')
 const cors= require('cors')
 const cookieParser= require('cookie-parser')
@@ -27,6 +28,14 @@ mongoose.connect(db,{
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors())
+app.use(
+    session({
+        secret: "mern is fun",
+        cookie: {},
+        resave: false,
+        saveUninitialized: false
+    })
+)
 
 // ROUTES
 app.get('/', (req,res) => {
